@@ -22,7 +22,7 @@ module.exports = () => {
         template: './index.html',
         title: 'Webpack Plugin',
       }),
-      new MiniCssExtractPlugin(),
+      new WebpackPwaManifest(),
       new InjectManifest({
         swSrc: './src/sw.js',
         swDest: 'service-worker.js',
@@ -33,7 +33,7 @@ module.exports = () => {
       rules: [
         {
           test: /\.css$/i,
-          use: [MiniCssExtractPlugin.loader, 'css-loader'],
+          use: [WebpackPwaManifest.loader, 'css-loader'],
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif)$/i,
