@@ -20,12 +20,30 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
-        title: 'Webpack Plugin',
+        title: 'JATE',
       }),
-      new WebpackPwaManifest(),
+     
       new InjectManifest({
         swSrc: './src/sw.js',
-        swDest: 'service-worker.js',
+        swDest: 'src-sw.js',
+      }),
+      new WebpackPwaManifest({
+        fingerprints: false,
+        inject: true,
+        name: 'Just Another Text Editor',
+        short_name: 'JATE',
+        description: 'Text editor for the web, with offline capabilities.',
+        background_color: '#225ca3',
+        theme_color: '#225ca3',
+        start_url: './',
+        publicPath: './',
+        icons: [
+          {
+            src: path.resolve('src/images/logo.png'),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join('images', 'icons'),
+          },
+        ],
       }),
     ],
 
@@ -33,19 +51,19 @@ module.exports = () => {
       rules: [
         {
           test: /\.css$/i,
-          use: [WebpackPwaManifest.loader, 'css-loader'],
-        },
-        {
-          test: /\.(png|svg|jpg|jpeg|gif)$/i,
-          type: 'asset/resource',
+          use: ['style-loader', 'css-loader'],
         },
         {
           test: /\.m?js$/,
-          exclude: /(node_modules|bower_components)/,
+          exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {
               presets: ['@babel/preset-env'],
+              plugins: [
+                "@babel/plugn-proposal-object-rest-spread",
+                "@babel/plugin-transform-runtime",
+              ],
             },
           },
         },

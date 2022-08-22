@@ -1,25 +1,27 @@
 {
-  "name": "JATE",
+  "name": "jate-19-1",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
     "start:dev": "concurrently \"cd client && npm run build\" \"cd server && npm run server\"",
-    "start": "webpack --watch",
-    "server": "cd server node server.js --ignore client",
-    "build": "webpack --mode production",
-    "install": "cd server && npm i && cd ../client && npm i",
-    "client": "cd client && npm start"
+    "start": "npm run build && cd server && node server.js",
+    "server": "cd server nodemon server.js --ignore client",
+    "build": "cd client && npm run build",
+    "install": "cd client && npm install",
+    "client": "cd client && npm start",
+    "heroku-prebuild": "npm install --dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cli": "^1.0.1",
     "express": "^4.17.1",
-    "if-env": "^1.0.4"
+    "if-env": "^1.0.4",
+    "webpack": "^5.74.0"
   },
   "devDependencies": {
-    "concurrently": "^5.2.0",
-    "nodemon": "^2.0.4"
+    "concurrently": "^5.2.0"
   }
 }
